@@ -1,0 +1,25 @@
+{
+    "name": "lenovo/cms",
+    "require": {
+        "swiftmailer/swiftmailer": "^6.3",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lenovo\\Cms\\": "src/"
+        }
+    },
+
+    "autoload": {
+
+        "classmap": [
+            "classes"
+        ]
+    },
+    "authors": [
+        {
+            "name": "mcepulis",
+            "email": "109752570+mcepulis@users.noreply.github.com"
+        }
+    ]
+}
