@@ -18,7 +18,7 @@ require 'vendor/autoload.php';
 
 
 
-if(!ifItIsMethod('get') && !isset($_GET['forgot'])){
+if(!isset($_GET['forgot'])){
     redirect('index');
 }
 if(ifItIsMethod('post')){
@@ -51,11 +51,15 @@ if(ifItIsMethod('post')){
             $mail->setFrom('Giedrius@bamba.lt', 'Giedrius Laika');
             $mail->addAddress($email);
             $mail->Subject = "Ateivis";
-            $mail->Body = '<h1>Please click to reset your password</h1>';
+            $mail->Body = '<p>Please click to reset your password
+            
+            <a href="http://localhost/cms/reset.php?email='.$email.'&token='.$token.' ">http://localhost/cms/reset.php?email='.$email.'&token='.$token.'</a>
+            
+            </p>';
             $mail->send();
            
             if($mail->send()) {
-                echo "IT WAS SENT";
+                $emailSent = true;
             } else {
                 echo "NOT SENT";
             }
@@ -90,6 +94,7 @@ if(ifItIsMethod('post')){
                     <div class="panel-body">
                         <div class="text-center">
 
+                        <?php if(!isset($emailSent)): ?>
 
                                 <h3><i class="fa fa-lock fa-4x"></i></h3>
                                 <h2 class="text-center">Forgot Password?</h2>
@@ -115,6 +120,12 @@ if(ifItIsMethod('post')){
                                     </form>
 
                                 </div><!-- Body-->
+
+                                <?php else: ?>
+
+                                    <h2>Please check your email</h2>
+                            
+                                    <?php endif; ?>
 
                         </div>
                     </div>
