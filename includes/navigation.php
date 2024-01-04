@@ -46,7 +46,7 @@
                     </li>
 
                     <li>
-                        <a href="/cms/includes/logout.php">Admin</a>
+                        <a href="/cms/includes/logout.php">Logout</a>
                     </li>
                     <?php else: ?>
                         <li>

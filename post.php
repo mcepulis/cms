@@ -103,7 +103,7 @@
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date ?></p>
                 <hr>
-                <img class="img-responsive" src="images/<?php echo $post_image ?>" alt="">
+                <img class="img-responsive" src="images/<?php echo imagePlaceholder($post_image); ?>" alt="">
                 <hr>
                 <p><?php echo $post_content ?></p>
             
@@ -154,9 +154,9 @@ if(isset($_POST['create_comment'])) {
         echo "<script>alert('Fields cannot be empty')</script>";
 
     }
-
+}
    
-    redirect("location: /cms/post.php?p_id = $the_post_id");
+    // redirect("location: /cms/post.php?p_id = $the_post_id");
     }
 
      
@@ -218,7 +218,7 @@ while ($row = mysqli_fetch_array($select_comment_query)) {
                         <?php echo $comment_content;?>
                     </div>
                 </div>
-    <?php }  } } else {
+    <?php }   } else {
 
 header("Location: index.php");
 
