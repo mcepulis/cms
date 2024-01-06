@@ -1,5 +1,10 @@
 <?php
 
+function query($query){
+    global $connection;
+    return mysqli_query($connection, $query);
+}
+
 function imagePlaceholder($image='') {
 
     if(!$image) {
@@ -8,6 +13,8 @@ function imagePlaceholder($image='') {
         return $image;
     }
 }
+
+
 
 function escape($string) {
 global $connection;
@@ -207,6 +214,22 @@ function isLoggedIn(){
         return true;
     }
 return false;
+}
+
+function loggedInUserId() {
+    if(isLoggedIn()) {
+        $result = query("SELECT * FROM users WHERE username='" . $_SESSION['username'] ."'");
+        $user = mysqli_fetch_array($result);
+            return mysqli_num_rows($result) >=1 ? $user['user_id'] : false;
+        }
+        return false;
+    }
+    
+
+
+function userLikedThisPost($post_id = '') {
+    $result = query("SELECT * FROM likes WHERE user_id=" .loggedInUserId() . " AND post_id={$post_id}");
+    return mysqli_num_rows($result) >= 1 ? true : false;
 }
 
 function checkIfUserIsLoggedInAndRedirect($redirectLocation=null) {
