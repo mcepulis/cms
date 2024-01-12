@@ -174,10 +174,10 @@
 
         <hr>
         <div class="row">
-            <p class="pull-right"><a href=""><span class="glyphicon glyphicon-thumbs-up">Like</a></p>
+            <p class="pull-right"><a class="<?php echo userLikedThisPost($the_post_id) ? 'unlike' : 'like'; ?>" href=""><span class="glyphicon glyphicon-thumbs-up"></span><?php echo userLikedThisPost($the_post_id) ? 'Unlike' : 'Like'; ?></a></p>
     </div>
     <div class="row">
-            <p class="pull-right">Like: 10</p>
+            <p class="pull-right">Like: <?php getPostlikes($the_post_id); ?> </p>
     </div>
 
     <div class="clearfix"></div>
