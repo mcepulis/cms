@@ -2,7 +2,9 @@
 
 function query($query){
     global $connection;
-    return mysqli_query($connection, $query);
+    $result = mysqli_query($connection, $query);
+    comfirm($result);
+    return $result;
 }
 
 function imagePlaceholder($image='') {
@@ -139,27 +141,34 @@ function checkStatus($table,$column,$status) {
 
 }
 
-
-function is_admin($username) {
-
-global $connection;
-
-$query = "SELECT user_role FROM users WHERE username = '$username'";
-$result = mysqli_query($connection, $query);
-comfirm($result);
-
-$row = mysqli_fetch_array($result);
-
-if($row['user_role'] == 'admin') {
-
-    return true;
-} else {
-    return false;
+function get_user_name() {
+    if(isset($_SESSION['username'])) {
+        return isset($_SESSION['username']) ? $_SESSION['username'] : null;
+    }
 }
 
+function is_admin() {
 
+if(isLoggedIn()) {
+    $result = query("SELECT user_role FROM users WHERE user_id = ".$SESSION['user_id']."");
+    
+    $row = fetchRecords($result);
+    
+    if($row['user_role'] == 'admin') {
+    
+        return true;
+    } else {
+        return false;
+    }
+    
 }
 
+return false;
+}
+
+function fetchRecords($result) {
+    return mysqli_fetch_array($result);
+}
 
 function username_exists($username){
 
@@ -290,6 +299,7 @@ function login_user($username, $password){
 
       if(password_verify($password,$db_user_password)) {
         //  header("Location: ../admin ");
+        $_SESSION['user_id'] = $db_user_id;
          $_SESSION['username'] = $db_username;
          $_SESSION['firstname'] = $db_user_firstname;
          $_SESSION['lastname'] = $db_user_lastname;
